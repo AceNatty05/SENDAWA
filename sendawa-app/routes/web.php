@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Route;
 | Web Routes
 |--------------------------------------------------------------------------
 |
-| SENDAWA — Aplikasi Review Anonim
+| SENDAWA — Aplikasi Postingan Anonim
 | Semua route diarahkan ke komponen Livewire ReviewManager.
 |
 */

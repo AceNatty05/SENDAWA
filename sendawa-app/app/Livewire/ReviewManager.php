@@ -2,7 +2,7 @@
 
 namespace App\Livewire;
 
-use App\Models\Review;
+use App\Models\Post;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Attributes\Title;
 use Livewire\Attributes\Url;
@@ -10,7 +10,7 @@ use Livewire\Component;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
 
-#[Title('SENDAWA – Review Anonim')]
+#[Title('SENDAWA – Postingan Anonim')]
 class ReviewManager extends Component
 {
     use WithFileUploads;
@@ -31,9 +31,9 @@ class ReviewManager extends Component
     // Form Fields
     // ---------------------------------------------------------------------------
 
-    public string $title          = '';
-    public string $review_content = '';
-    public $image                 = null;   // TemporaryUploadedFile | null
+    public string $title   = '';
+    public string $content = '';
+    public $image          = null;   // TemporaryUploadedFile | null
 
     // ---------------------------------------------------------------------------
     // Validation Rules
@@ -42,19 +42,19 @@ class ReviewManager extends Component
     protected function rules(): array
     {
         return [
-            'title'          => 'required|string|min:3|max:255',
-            'review_content' => 'required|string|min:10',
-            'image'          => 'nullable|image|max:2048', // 2 MB
+            'title'   => 'required|string|min:3|max:255',
+            'content' => 'required|string|min:10',
+            'image'   => 'nullable|image|max:2048', // 2 MB
         ];
     }
 
     protected array $messages = [
-        'title.required'          => 'Judul wajib diisi.',
-        'title.min'               => 'Judul minimal 3 karakter.',
-        'review_content.required' => 'Isi review wajib diisi.',
-        'review_content.min'      => 'Isi review minimal 10 karakter.',
-        'image.image'             => 'File harus berupa gambar.',
-        'image.max'               => 'Ukuran gambar maksimal 2 MB.',
+        'title.required'   => 'Judul wajib diisi.',
+        'title.min'        => 'Judul minimal 3 karakter.',
+        'content.required' => 'Isi postingan wajib diisi.',
+        'content.min'      => 'Isi postingan minimal 10 karakter.',
+        'image.image'      => 'File harus berupa gambar.',
+        'image.max'        => 'Ukuran gambar maksimal 2 MB.',
     ];
 
     // ---------------------------------------------------------------------------
@@ -74,7 +74,7 @@ class ReviewManager extends Component
     }
 
     /**
-     * Proses submit review baru.
+     * Proses submit postingan baru.
      */
     public function submitReview(): void
     {
@@ -83,37 +83,36 @@ class ReviewManager extends Component
         $imagePath = null;
 
         if ($this->image) {
-            // Simpan ke storage/app/public/images → dapat diakses via /storage/images/...
             $imagePath = $this->image->store('images', 'public');
         }
 
-        Review::create([
-            'title'          => trim($this->title),
-            'review_content' => trim($this->review_content),
-            'image_path'     => $imagePath,
+        Post::create([
+            'title'      => trim($this->title),
+            'content'    => trim($this->content),
+            'image_path' => $imagePath,
         ]);
 
         $this->resetForm();
         $this->showForm = false;
         $this->resetPage();
 
-        session()->flash('success', 'Review berhasil dikirim!');
+        session()->flash('success', 'Postingan berhasil dikirim!');
     }
 
     /**
-     * Hapus sebuah review beserta gambarnya (jika ada).
+     * Hapus sebuah postingan beserta gambarnya (jika ada).
      */
     public function deleteReview(int $id): void
     {
-        $review = Review::findOrFail($id);
+        $post = Post::findOrFail($id);
 
-        if ($review->image_path) {
-            Storage::disk('public')->delete($review->image_path);
+        if ($post->image_path) {
+            Storage::disk('public')->delete($post->image_path);
         }
 
-        $review->delete();
+        $post->delete();
 
-        session()->flash('success', 'Review berhasil dihapus.');
+        session()->flash('success', 'Postingan berhasil dihapus.');
     }
 
     // ---------------------------------------------------------------------------
@@ -134,7 +133,7 @@ class ReviewManager extends Component
 
     public function render()
     {
-        $reviews = Review::query()
+        $posts = Post::query()
             ->when(
                 $this->search,
                 fn ($q) => $q->where('title', 'like', '%' . $this->search . '%')
@@ -143,7 +142,7 @@ class ReviewManager extends Component
             ->paginate(9);
 
         return view('livewire.review-manager', [
-            'reviews' => $reviews,
+            'posts' => $posts,
         ])->layout('layouts.app');
     }
 
@@ -153,7 +152,7 @@ class ReviewManager extends Component
 
     private function resetForm(): void
     {
-        $this->reset(['title', 'review_content', 'image']);
+        $this->reset(['title', 'content', 'image']);
         $this->resetValidation();
     }
 }
