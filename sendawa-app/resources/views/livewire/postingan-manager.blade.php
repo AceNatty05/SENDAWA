@@ -17,8 +17,8 @@
          HERO SECTION
          ====================================================== --}}
     <div class="hero">
-        <h1 class="hero-title">Suaramu, Tanpa Identitas</h1>
-        <p class="hero-subtitle">Tulis postingan jujurmu — anonim, bebas, dan tanpa perlu daftar.</p>
+        <h1 class="hero-title">Ungkapkan Opinimu!</h1>
+        <p class="hero-subtitle">Tiada pembungkaman disini</p>
 
         <div class="hero-actions">
             {{-- Tombol Tulis Postingan --}}
