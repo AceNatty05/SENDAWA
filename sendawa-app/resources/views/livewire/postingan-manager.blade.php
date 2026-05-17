@@ -2,38 +2,49 @@
 <div>
 
     {{-- ======================================================
-         NAVBAR  (di sini supaya wire:model & wire:click bekerja)
+         NAVBAR
          ====================================================== --}}
     <nav class="sendawa-navbar">
-        <a href="/" class="sendawa-brand">SENDAWA</a>
+        <div class="navbar-left">
+            <div class="brand-avatar">S</div>
+            <a href="/" class="sendawa-brand">SENDAWA</a>
+        </div>
+        <span class="anonim-badge">100% Anonim</span>
+    </nav>
 
-        {{-- Badge jumlah postingan --}}
-        <span class="post-count-badge">
-            {{ $posts->total() }}
-        </span>
 
-        <div class="sendawa-search">
-            <input
-                id="search"
-                type="search"
-                wire:model.live.debounce.400ms="search"
-                placeholder="Cari postingan..." />
-            @if($search)
-                <button wire:click="$set('search', '')" class="clear-btn" title="Hapus pencarian">✕</button>
-            @endif
+    {{-- ======================================================
+         HERO SECTION
+         ====================================================== --}}
+    <div class="hero">
+        <h1 class="hero-title">Suaramu, Tanpa Identitas</h1>
+        <p class="hero-subtitle">Tulis postingan jujurmu — anonim, bebas, dan tanpa perlu daftar.</p>
+
+        <div class="hero-actions">
+            {{-- Tombol Tulis Postingan --}}
+            <button wire:click="toggleForm" class="btn-new-post">
+                + &nbsp;Tulis Postingan
+            </button>
+
+            {{-- Search Bar --}}
+            <div class="hero-search-wrap">
+                <span class="search-icon">🔍</span>
+                <input
+                    id="search"
+                    type="search"
+                    wire:model.live.debounce.400ms="search"
+                    placeholder="Cari postingan berdasarkan judul..." />
+                @if($search)
+                    <button wire:click="$set('search', '')" class="clear-btn" title="Hapus pencarian">✕</button>
+                @endif
+            </div>
         </div>
 
-        {{-- Spacer: dorong tombol ke ujung kanan --}}
-        <div class="sendawa-spacer"></div>
-
-        {{-- Toggle Tema --}}
-        <button id="theme-toggle-btn" class="theme-toggle" onclick="toggleTheme()" title="Ganti tema">🌙</button>
-
-        {{-- New Post --}}
-        <button wire:click="toggleForm" class="sendawa-new-post">
-            ✏️ NEW POST
-        </button>
-    </nav>
+        {{-- Jumlah Postingan --}}
+        <p class="post-count-text">
+            <strong>{{ $posts->total() }}</strong> postingan ditemukan
+        </p>
+    </div>
 
 
     {{-- ======================================================
@@ -84,19 +95,19 @@
                         <label class="upload-area" for="f-image">
                             @if($image)
                                 <div class="upload-icon">🖼️</div>
-                                <p style="color:#3b5998;font-weight:600;margin-top:4px;">{{ $image->getClientOriginalName() }}</p>
+                                <p style="color:#a855f7;font-weight:600;margin-top:4px;">{{ $image->getClientOriginalName() }}</p>
                                 <p style="margin-top:4px;">Klik untuk ganti gambar</p>
                             @else
                                 <div class="upload-icon">📷</div>
                                 <p>Klik atau seret foto ke sini</p>
-                                <p style="margin-top:4px;font-size:0.75rem;color:#aab;">PNG, JPG, WEBP · Maks 2 MB</p>
+                                <p style="margin-top:4px;font-size:0.75rem;color:#4a4a70;">PNG, JPG, WEBP · Maks 2 MB</p>
                             @endif
                             <input id="f-image" type="file" wire:model="image" accept="image/*" />
                         </label>
                         @error('image')
                             <p class="form-error">{{ $message }}</p>
                         @enderror
-                        <div wire:loading wire:target="image" style="font-size:0.8rem;color:#3b5998;margin-top:6px;">
+                        <div wire:loading wire:target="image" style="font-size:0.8rem;color:#a855f7;margin-top:6px;">
                             ⏳ Mengunggah gambar...
                         </div>
                     </div>
@@ -118,15 +129,19 @@
          FLASH MESSAGE
          ====================================================== --}}
     @if(session()->has('success'))
-    <div class="flash-success">
-        ✅ {{ session('success') }}
+    <div style="max-width:1280px;margin:0 auto;padding:0 20px;">
+        <div class="flash-success">
+            ✅ {{ session('success') }}
+        </div>
     </div>
     @endif
 
-    {{-- Search result info (hanya tampil saat ada pencarian) --}}
+    {{-- Search result info --}}
     @if($search)
-    <div class="search-result-info">
-        🔍 <strong>{{ $posts->total() }}</strong> hasil untuk "<em>{{ $search }}</em>"
+    <div style="text-align:center;margin-bottom:16px;">
+        <div class="search-result-info">
+            🔍 <strong>{{ $posts->total() }}</strong> hasil untuk "<em>{{ $search }}</em>"
+        </div>
     </div>
     @endif
 
@@ -136,15 +151,15 @@
     @if($posts->isEmpty())
         <div class="empty-state">
             <div class="empty-box">
-                <div style="font-size:3.5rem;margin-bottom:12px;">{{ $search ? '🔍' : '📭' }}</div>
-                <p style="font-size:1.05rem;font-weight:700;color:#fff;text-shadow:0 1px 4px rgba(0,40,80,0.4);margin:0 0 8px;">
+                <div style="font-size:3.5rem;margin-bottom:16px;">{{ $search ? '🔍' : '📭' }}</div>
+                <p style="font-size:1.05rem;font-weight:700;color:#d0d0f0;margin:0 0 6px;">
                     {{ $search ? 'Tidak ada postingan yang cocok.' : 'Belum ada postingan. Jadilah yang pertama!' }}
                 </p>
                 @if(!$showForm && !$search)
                 <button wire:click="toggleForm"
-                        style="margin-top:16px;background:rgba(0,80,160,0.75);backdrop-filter:blur(6px);color:#fff;border:1.5px solid rgba(255,255,255,0.4);border-radius:10px;padding:10px 28px;font-weight:700;cursor:pointer;font-size:0.9rem;transition:background 0.2s,transform 0.15s;"
-                        onmouseover="this.style.background='rgba(0,119,182,0.9)';this.style.transform='translateY(-2px)'"
-                        onmouseout="this.style.background='rgba(0,80,160,0.75)';this.style.transform='none'">
+                        style="margin-top:20px;background:linear-gradient(135deg,#7c3aed,#a855f7);color:#fff;border:none;border-radius:12px;padding:12px 32px;font-weight:700;cursor:pointer;font-size:0.9rem;letter-spacing:0.3px;transition:transform 0.18s,box-shadow 0.18s;box-shadow:0 4px 16px rgba(139,92,246,0.4);"
+                        onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 24px rgba(139,92,246,0.55)'"
+                        onmouseout="this.style.transform='none';this.style.boxShadow='0 4px 16px rgba(139,92,246,0.4)'">
                     ✏️ Tulis Sekarang
                 </button>
                 @endif
