@@ -290,6 +290,13 @@
             color: #5a5a90;
         }
 
+        /* ── Card Actions ── */
+        .postingan-card-actions {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
         .btn-delete {
             font-size: 0.72rem;
             color: #5a5a90;
@@ -304,6 +311,22 @@
         .btn-delete:hover {
             background: rgba(239,68,68,0.15);
             color: #f87171;
+        }
+
+        .btn-edit {
+            font-size: 0.72rem;
+            color: #5a5a90;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 4px 8px;
+            border-radius: 5px;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .btn-edit:hover {
+            background: rgba(139,92,246,0.15);
+            color: #a855f7;
         }
 
         /* ── Flash ── */
@@ -365,6 +388,10 @@
             animation: slideUp 0.25s ease;
         }
 
+        .modal-box--sm {
+            max-width: 420px;
+        }
+
         @keyframes slideUp {
             from { opacity: 0; transform: translateY(24px); }
             to   { opacity: 1; transform: translateY(0); }
@@ -377,6 +404,16 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
+        }
+
+        .modal-header--danger {
+            background: linear-gradient(135deg, #2e0a0a 0%, #4e1b1b 100%);
+            border-bottom-color: rgba(239,68,68,0.3);
+        }
+
+        .modal-header--edit {
+            background: linear-gradient(135deg, #0a1a2e 0%, #1b2e4e 100%);
+            border-bottom-color: rgba(59,130,246,0.3);
         }
 
         .modal-header h2 {
@@ -491,6 +528,139 @@
 
         .btn-submit:hover { opacity: 0.9; transform: translateY(-1px); box-shadow: 0 6px 20px rgba(139,92,246,0.55); }
         .btn-submit:disabled { opacity: 0.45; cursor: not-allowed; transform: none; box-shadow: none; }
+
+        /* ── Modal Desc & Actions ── */
+        .modal-desc {
+            color: #9090c0;
+            font-size: 0.88rem;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 8px;
+        }
+
+        .btn-cancel {
+            flex: 1;
+            background: rgba(255,255,255,0.06);
+            color: #9090c0;
+            border: 1.5px solid rgba(255,255,255,0.1);
+            border-radius: 10px;
+            padding: 11px 16px;
+            font-size: 0.88rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .btn-cancel:hover {
+            background: rgba(255,255,255,0.1);
+            color: #d0d0f0;
+        }
+
+        .btn-danger {
+            flex: 1;
+            background: linear-gradient(135deg, #b91c1c, #ef4444);
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            padding: 11px 16px;
+            font-size: 0.88rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: opacity 0.2s, transform 0.15s, box-shadow 0.2s;
+            box-shadow: 0 4px 16px rgba(239,68,68,0.35);
+        }
+
+        .btn-danger:hover { opacity: 0.9; transform: translateY(-1px); box-shadow: 0 6px 20px rgba(239,68,68,0.5); }
+        .btn-danger:disabled { opacity: 0.45; cursor: not-allowed; transform: none; box-shadow: none; }
+
+        .btn-submit-edit {
+            flex: 1;
+            background: linear-gradient(135deg, #1d4ed8, #3b82f6);
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            padding: 11px 16px;
+            font-size: 0.88rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: opacity 0.2s, transform 0.15s, box-shadow 0.2s;
+            box-shadow: 0 4px 16px rgba(59,130,246,0.35);
+        }
+
+        .btn-submit-edit:hover { opacity: 0.9; transform: translateY(-1px); box-shadow: 0 6px 20px rgba(59,130,246,0.5); }
+        .btn-submit-edit:disabled { opacity: 0.45; cursor: not-allowed; transform: none; box-shadow: none; }
+
+        /* ── Password Input ── */
+        .password-input-wrap {
+            position: relative;
+        }
+
+        .password-input-wrap .form-input {
+            padding-right: 40px;
+        }
+
+        .password-lock-icon {
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.9rem;
+            pointer-events: none;
+            opacity: 0.6;
+        }
+
+        .input--error {
+            border-color: rgba(239,68,68,0.6) !important;
+            box-shadow: 0 0 0 3px rgba(239,68,68,0.12) !important;
+        }
+
+        /* ── Modal Divider ── */
+        .modal-divider {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 20px 0 18px;
+            color: #5a5a90;
+            font-size: 0.78rem;
+            font-weight: 600;
+            letter-spacing: 0.4px;
+        }
+
+        .modal-divider::before,
+        .modal-divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: rgba(139,92,246,0.2);
+        }
+
+        /* ── Edit Photo Preview ── */
+        .edit-photo-preview {
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1.5px solid rgba(139,92,246,0.2);
+            background: rgba(139,92,246,0.05);
+        }
+
+        .edit-photo-preview img {
+            width: 100%;
+            max-height: 160px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .edit-photo-caption {
+            padding: 6px 12px;
+            font-size: 0.75rem;
+            color: #5a5a90;
+            margin: 0;
+            text-align: center;
+        }
 
         /* ── Main ── */
         .sendawa-main {
