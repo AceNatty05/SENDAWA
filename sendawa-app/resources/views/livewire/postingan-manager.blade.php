@@ -1,4 +1,4 @@
-{{-- resources/views/livewire/review-manager.blade.php --}}
+{{-- resources/views/livewire/postingan-manager.blade.php --}}
 <div>
 
     {{-- ======================================================
@@ -49,7 +49,7 @@
             </div>
 
             <div class="modal-body">
-                <form wire:submit="submitReview" enctype="multipart/form-data">
+                <form wire:submit="submitPostingan" enctype="multipart/form-data">
 
                     {{-- Judul --}}
                     <div class="form-group">
@@ -103,8 +103,8 @@
 
                     {{-- Submit --}}
                     <button type="submit" class="btn-submit" wire:loading.attr="disabled">
-                        <span wire:loading.remove wire:target="submitReview">🚀 Kirim Postingan</span>
-                        <span wire:loading wire:target="submitReview">⏳ Mengirim...</span>
+                        <span wire:loading.remove wire:target="submitPostingan">🚀 Kirim Postingan</span>
+                        <span wire:loading wire:target="submitPostingan">⏳ Mengirim...</span>
                     </button>
 
                 </form>
@@ -152,18 +152,18 @@
         </div>
 
     @else
-        <div class="review-masonry">
+        <div class="postingan-masonry">
             @foreach($posts as $post)
-            <article wire:key="post-{{ $post->id }}" class="review-card">
+            <article wire:key="post-{{ $post->id }}" class="postingan-card">
 
                 {{-- Header: Judul --}}
-                <div class="review-card-header">
+                <div class="postingan-card-header">
                     {{ $post->title }}
                 </div>
 
                 {{-- Foto (jika ada) --}}
                 @if($post->image_path)
-                <div class="review-card-photo">
+                <div class="postingan-card-photo">
                     <img src="{{ Storage::url($post->image_path) }}"
                          alt="Foto: {{ $post->title }}"
                          loading="lazy" />
@@ -171,15 +171,15 @@
                 @endif
 
                 {{-- Isi Postingan --}}
-                <div class="review-card-body">
+                <div class="postingan-card-body">
                     {{ $post->content }}
                 </div>
 
                 {{-- Footer: waktu + hapus --}}
-                <div class="review-card-footer">
-                    <span class="review-time">🕐 {{ $post->created_at->diffForHumans() }}</span>
+                <div class="postingan-card-footer">
+                    <span class="postingan-time">🕐 {{ $post->created_at->diffForHumans() }}</span>
                     <button
-                        wire:click="deleteReview({{ $post->id }})"
+                        wire:click="deletePostingan({{ $post->id }})"
                         wire:confirm="Yakin ingin menghapus postingan ini?"
                         class="btn-delete">
                         Hapus

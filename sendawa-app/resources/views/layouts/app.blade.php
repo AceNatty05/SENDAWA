@@ -93,12 +93,12 @@
         }
 
         /* ── Masonry Grid ── */
-        .review-masonry { columns: 3; column-gap: 18px; }
-        @media (max-width: 960px) { .review-masonry { columns: 2; } }
-        @media (max-width: 580px) { .review-masonry { columns: 1; } }
+        .postingan-masonry { columns: 3; column-gap: 18px; }
+        @media (max-width: 960px) { .postingan-masonry { columns: 2; } }
+        @media (max-width: 580px) { .postingan-masonry { columns: 1; } }
 
         /* ── Card ── */
-        .review-card {
+        .postingan-card {
             break-inside: avoid;
             margin-bottom: 18px;
             border-radius: 18px;
@@ -109,12 +109,12 @@
             transition: box-shadow 0.25s, transform 0.25s, background-color 0.3s, border-color 0.3s;
         }
 
-        .review-card:hover {
+        .postingan-card:hover {
             box-shadow: 0 8px 28px var(--card-hover-shadow);
             transform: translateY(-3px);
         }
 
-        .review-card-header {
+        .postingan-card-header {
             padding: 12px 16px 10px;
             border-bottom: 1.5px solid var(--border);
             font-weight: 600;
@@ -123,7 +123,7 @@
             transition: border-color 0.3s, color 0.3s;
         }
 
-        .review-card-photo {
+        .postingan-card-photo {
             width: 100%;
             border-bottom: 1.5px solid var(--border);
             background: var(--surface-2);
@@ -131,7 +131,7 @@
             transition: border-color 0.3s, background 0.3s;
         }
 
-        .review-card-photo img {
+        .postingan-card-photo img {
             width: 100%;
             display: block;
             object-fit: cover;
@@ -139,9 +139,9 @@
             transition: transform 0.4s;
         }
 
-        .review-card:hover .review-card-photo img { transform: scale(1.04); }
+        .postingan-card:hover .postingan-card-photo img { transform: scale(1.04); }
 
-        .review-card-body {
+        .postingan-card-body {
             padding: 12px 16px;
             color: var(--text-body);
             font-size: 0.875rem;
@@ -149,14 +149,14 @@
             transition: color 0.3s;
         }
 
-        .review-card-footer {
+        .postingan-card-footer {
             padding: 6px 16px 12px;
             display: flex;
             align-items: center;
             justify-content: space-between;
         }
 
-        .review-time {
+        .postingan-time {
             font-size: 0.75rem;
             color: var(--text-muted);
             transition: color 0.3s;

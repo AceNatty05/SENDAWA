@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
 |
 | SENDAWA — Aplikasi Postingan Anonim
-| Semua route diarahkan ke komponen Livewire ReviewManager.
+| Semua route diarahkan ke komponen Livewire PostinganManager.
 |
 */
 

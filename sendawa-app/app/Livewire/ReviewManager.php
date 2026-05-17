@@ -10,7 +10,7 @@ use Livewire\Component;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
 
-#[Title('SENDAWA – Postingan Anonim')]
+// #[Title('SENDAWA – Postingan Anonim')]
 class ReviewManager extends Component
 {
     use WithFileUploads;
@@ -76,7 +76,7 @@ class ReviewManager extends Component
     /**
      * Proses submit postingan baru.
      */
-    public function submitReview(): void
+    public function submitPostingan(): void
     {
         $this->validate();
 
@@ -102,7 +102,7 @@ class ReviewManager extends Component
     /**
      * Hapus sebuah postingan beserta gambarnya (jika ada).
      */
-    public function deleteReview(int $id): void
+    public function deletePostingan(int $id): void
     {
         $post = Post::findOrFail($id);
 
@@ -141,7 +141,7 @@ class ReviewManager extends Component
             ->latest()
             ->paginate(9);
 
-        return view('livewire.review-manager', [
+        return view('livewire.postingan-manager', [
             'posts' => $posts,
         ])->layout('layouts.app');
     }
